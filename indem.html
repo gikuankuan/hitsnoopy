@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="contant">
+        <h3>狂暴史努比</h3>
+        <div class="row">
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(0)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(1)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(2)" />
+        </div>
+
+        <div class="row">
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(3)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(4)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(5)" />
+        </div>
+        <div class="row">
+
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(6)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(7)" />
+            <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(8)" />
+        </div>
+        <div class="control">
+            <div class="msg">
+                <span id="time">剩餘時間：0s</span>
+                <button>遊戲開始</button>
+                <span id="combo">成績分數：0s</span>
+            </div>
+            <hr>
+            <strong>遊戲說明</strong>
+            <p>
+                狂暴史努比看似可愛，但其實時間到了就會抓狂。<br>
+                你必須使用鐵拳打他讓他冷靜，每打到一隻狂暴史努比你就可以得到一分！得到一百分就是最棒的
+            </p>
+        </div>
+    </div>
+    <script>
+        //初始化
+        let btn = document.getElementsByTagName("button")[0];
+        btn.addEventListener("click", gamestart);//監聽時有人觸發函式
+        let time = document.getElementById("time");//顯示時間
+        let combo = document.getElementById("combo");//顯示分數
+        let sec = 0, count = 0;
+        let space = document.getElementsByClassName("cell");
+        let beY = new Array();
+
+
+        //遊戲開始
+
+        function gamestart() {
+            btn.removeEventListener("click", gamestart);//取消監聽
+            console.log("gamestart");
+            sec = 60, count = 0;
+            time.textContent = `剩餘時間：60s`;
+            combo.textContent = `成績分數：0`;
+
+            let start = setInterval(() => {
+                if (sec == 0) {
+                    clearInterval(start);
+                    btn.addEventListener("click", gamestart);
+
+                } else {
+                    sec--;
+                    time.textContent = `剩餘時間:${sec}s`;
+                }
+            }, 1000)
+
+            for (let i = 0; i < 100; i++) {
+                let swhich = Math.floor(Math.random() * 9);//隨機九格位置
+                let ontime = Math.floor(Math.random() * 55000); //隨機出現的時間點 0-54999
+                let delay = Math.floor(Math.random() * 3) + 1; //出場停留時間停留時間2-4秒
+                setTimeout(() => {
+                    showit(swhich, delay, i);
+                }, ontime);
+            }
+
+            //轉RED事件
+
+            function showit(swhich, delay, i) {
+
+                if (space[swhich].title != "yello") {
+                    let newswitch = Math.floor(Math.random() * 9);
+
+                    setTimeout(() => {//避免時間太快
+                        showit(newswitch, delay, i);
+                    }, 500)
+
+                } else {
+                    space[swhich].src = "img/red.png";
+                    space[swhich].style.background = "red";
+                    space[swhich].title = "red";
+                    //轉紅
+                    space[swhich].alt = i;
+
+                    beY[i] = setTimeout(() => {
+                        space[swhich].src = "img/yello.png";
+                        space[swhich].style.background = null;
+                        space[swhich].title = "yello";
+                        space[swhich].alt = null;
+                    }, delay * 1000)
+
+                    //轉黃
+                }
+            }
+            //鍵盤事件 觸發計算位置是否得分
+            document.onkeydown = kbcode;
+
+            function kbcode() {
+                console.log(event.keyCode);
+                switch (event.keyCode) {
+                    case 103: getCount(0); break;
+                    case 104: getCount(1); break;
+                    case 105: getCount(2); break;
+                    case 100: getCount(3); break;
+                    case 101: getCount(4); break;
+                    case 102: getCount(5); break;
+                    case 97: getCount(6); break;
+                    case 98: getCount(7); break;
+                    case 99: getCount(8); break;
+                }
+            }
+
+            //滑鼠事件 
+
+
+
+            function getCount(item) {
+                if (space[item].title == "red") {
+                    //轉綠
+                    space[item].src = "img/green.png";
+                    space[item].style.background = "lightgreen";
+                    space[item].title = "green";
+                    //加分
+                    count++;
+                    combo.textContent = `成績分數：${count}`;
+
+                    setTimeout(() => {
+                        space[item].src = "img/yello.png";
+                        space[item].style.background = null;
+                        space[item].title = "yello";
+                    }, 1000)
+                } else {
+
+                }
+                //清除原先的
+                id = space[item].alt;
+                clearTimeout(beY[id]);
+                space[item].alt = null;
+            }
+
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

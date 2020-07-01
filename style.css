@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 12px;
+}
+
+.contant{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    /* width: 350px;
+    height: 350px; */
+    margin: 30px auto;
+   
+}
+img{
+    height: 100px;
+    width: 100px;
+}
+.control{
+    max-width: 350px;
+}
+.cell{
+background: lightgoldenrodyellow;
+border: 2px solid #ccc;
+width: 100px;
+height: 100px;
+cursor: pointer;
+}
+.msg{
+margin: 10px auto;
+display: flex;
+justify-content: space-around;
+line-height: 2rem;
+
+}
+span,button{
+flex-basis: 30%;
+}
