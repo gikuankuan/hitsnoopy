@@ -4,17 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>打爆史努比</title>
     <link rel="stylesheet" href="style.css">
-
-
-    <style>
-
-
-
-    </style>
 </head>
-
 <body>
     <div class="contant">
         <h3>狂暴史努比</h3>
@@ -30,7 +22,6 @@
             <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(5)" />
         </div>
         <div class="row">
-
             <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(6)" />
             <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(7)" />
             <img src="img/yello.png" alt="1" class="cell" title="yello" onclick="getCount(8)" />
@@ -58,10 +49,7 @@
         let sec = 0, count = 0;
         let space = document.getElementsByClassName("cell");
         let beY = new Array();
-
-
         //遊戲開始
-
         function gamestart() {
             btn.removeEventListener("click", gamestart);//取消監聽
             console.log("gamestart");
